@@ -1,0 +1,32 @@
+version: "3.7"
+
+services:
+  webserver:
+    container_name: webserver
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/Private/doraemon/webserver
+      - filestorage:/src
+    logging:
+      options:
+        max-size: "500k"
+    ports:
+      - "3000:3000"
+    external_links:
+      - datastore
+      - filestorage
+      - worker
+      - workqueue
+    networks:
+      - doranet
+    command: [sh, -c, npm install && npm start]
+
+networks:
+  doranet:
+    external: true
+
+volumes:
+  filestorage:
+    external: true

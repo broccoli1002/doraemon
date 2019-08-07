@@ -1,0 +1,15 @@
+version: '3'
+services:
+  datastore:
+    container_name: datastore
+    image: "redis:latest"
+    ports:
+            - "6379:6379"
+    volumes:
+      - "./data/reis:/data"
+    networks:
+      - doranet
+
+networks:
+  doranet:
+    external: true

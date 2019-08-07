@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  workqueue:
+    container_name: workqueue
+    image: rabbitmq:3.7.16-management
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+    external_links:
+      - webserver
+      - worker
+    networks:
+      - doranet
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
+
+networks:
+  doranet:
+    external: true
+
+volumes:
+  rabbitmq-data:
